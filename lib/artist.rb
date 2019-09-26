@@ -4,12 +4,13 @@ class Artist
     @@all = []
 
     def initialize(name)
-    @name = name
+        @name = name
         save
     end
 
     def save
         @@all << self
+    
     end
 
     def self.all
@@ -24,4 +25,10 @@ class Artist
         song.artist = self
     end
 
+    def self.find_or_create_by_name(name)
+        @@all.find{|artist| artist.name == name} ||
+        artist = self.new(name)
+        @@all << artist
+        artist
+    end
 end
